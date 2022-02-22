@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ahorcado</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div style="text-align:center; margin: 50px 0px;" id="div-1">
+      <h1 class="titulo">HENRY'S HANGMAN</h1>
+      <div style="text-align:center;"id="div-2">
+        <h2>REGLAS:</h2>
+          <h4>-Solo letras MAYUSCULAS</h4> 
+          <h4>-Sin acentos</h4> 
+        </div>
+          <button class="btn" id="iniciar-juego"onclick="startGame()">INICIAR JUEGO</button>
+    <div> 
+      <h4> Puedes agregar nuevas palabras </h4>
+    </div>
+      <input class="text-input" type="text" id="input-nueva-palabra" placeholder="Escriba una nueva palabra"></input>
+      <button class="btn" id="nueva-palabra"onclick="addWord()">AGREGAR PALABRA</button> 
+    </div>
+    <div style="text-align:center;display: none"id="div-3">
+      <h2 id="vidas">Intentos Fallidos: 0</h2>
+      <input  id="input-nueva-letra"></input>
+      <button class="btn" id="evaluar-palabra"onclick="checkLetter()"autofocus>Evaluar letra</button> 
+      <h2 id="word-space"></h2>
+    </div>
+    <div style="text-align:center;display: none"id="div-imagen">
+      <img src="img/0.jpg" id="foto"></img>
+      <h2 id="letter-fail">Letras fallidas:</h2>
+    </div>
+    <div id="contact">
+      <p>Hmonsanto @ 2022|</p>
+      <a class="links-footer" href="https://www.linkedin.com/in/ing-henry-monsanto/" target="_blank">
+          <img class="iconos" src="img/linkedIn.png" alt="Linkedin">
+      </a>
+      <a class="links-footer" href="https://github.com/hmonsanto" target="_blank">
+          <img class="iconos" src="img/Github.png" alt="GitHub">
+      </a>
+  </div>
+    <script type="text/javascript" src="main.js"></script>
+  </body>
+</html>
