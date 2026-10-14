@@ -1,46 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Ahorcado</title>
-    <link rel="stylesheet" href="./style.css">
-  </head>
-  <body>
-    <div style="text-align:center; margin: 50px 0px;" id="div-1">
-      <h1 class="titulo">HENRY'S HANGMAN</h1>
-      <div style="text-align:center;"id="div-2">
-        <h2>REGLAS:</h2>
-          <h4>-Solo letras MAYUSCULAS</h4> 
-          <h4>-Sin acentos</h4> 
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Henry's Hangman — Juego del ahorcado</title>
+<meta name="description" content="Juego del ahorcado con teclado en pantalla y palabras ampliables. Reto del programa Oracle ONE / Alura.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%2338BDF8'/%3E%3Ctext x='50%25' y='56%25' font-size='18' text-anchor='middle' dominant-baseline='middle'%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="cabecera">
+    <a class="volver" href="https://hmonsanto.github.io" aria-label="Volver al portafolio">
+        <span aria-hidden="true">←</span> Portafolio
+    </a>
+</header>
+
+<main class="pagina">
+
+    <!-- Pantalla de inicio -->
+    <section class="inicio" id="inicio">
+        <h1>Henry&#39;s Hangman</h1>
+        <p class="inicio__sub">
+            Adivina la palabra oculta letra a letra. Tienes seis fallos antes de
+            que el dibujo se complete.
+        </p>
+
+        <button type="button" class="btn btn--primario btn--grande" id="btn-jugar">
+            Empezar a jugar
+        </button>
+
+        <div class="anadir">
+            <label class="anadir__etiqueta" for="nueva-palabra">
+                ¿Quieres añadir tus propias palabras?
+            </label>
+            <div class="anadir__fila">
+                <input type="text" id="nueva-palabra" class="campo"
+                       placeholder="Escribe una palabra" autocomplete="off" maxlength="20">
+                <button type="button" class="btn btn--fantasma" id="btn-anadir">Añadir</button>
+            </div>
+            <p class="aviso" id="aviso-anadir" role="status" aria-live="polite"></p>
+            <p class="anadir__cuenta">Palabras disponibles: <strong id="cuenta">0</strong></p>
         </div>
-          <button class="btn" id="iniciar-juego"onclick="startGame()">INICIAR JUEGO</button>
-    <div> 
-      <h4> Puedes agregar nuevas palabras </h4>
-    </div>
-      <input class="text-input" type="text" id="input-nueva-palabra" placeholder="Escriba una nueva palabra"></input>
-      <button class="btn" id="nueva-palabra"onclick="addWord()">AGREGAR PALABRA</button> 
-    </div>
-    <div style="text-align:center;display: none"id="div-3">
-      <h2 id="vidas">Intentos Fallidos: 0</h2>
-      <input  id="input-nueva-letra"></input>
-      <button class="btn" id="evaluar-palabra"onclick="checkLetter()"autofocus>Evaluar letra</button> 
-      <h2 id="word-space"></h2>
-    </div>
-    <div style="text-align:center;display: none"id="div-imagen">
-      <img src="img/0.jpg" id="foto"></img>
-      <h2 id="letter-fail">Letras fallidas:</h2>
-    </div>
-    <div id="contact">
-      <p>Hmonsanto @ 2022|</p>
-      <a class="links-footer" href="https://www.linkedin.com/in/ing-henry-monsanto/" target="_blank">
-          <img class="iconos" src="img/linkedIn.png" alt="Linkedin">
-      </a>
-      <a class="links-footer" href="https://github.com/hmonsanto" target="_blank">
-          <img class="iconos" src="img/Github.png" alt="GitHub">
-      </a>
-  </div>
-    <script type="text/javascript" src="main.js"></script>
-  </body>
+    </section>
+
+    <!-- Pantalla de juego -->
+    <section class="juego" id="juego" hidden>
+
+        <div class="juego__tablero">
+            <figure class="dibujo">
+                <img src="img/0.jpg" alt="" id="dibujo" width="300" height="300">
+                <figcaption class="dibujo__pie" id="estado-fallos" role="status" aria-live="polite">
+                    Fallos: 0 de 6
+                </figcaption>
+            </figure>
+
+            <div class="juego__panel">
+                <p class="palabra" id="palabra" aria-label="Palabra oculta"></p>
+
+                <p class="falladas">
+                    Letras falladas: <span id="falladas">—</span>
+                </p>
+
+                <p class="resultado" id="resultado" role="status" aria-live="assertive"></p>
+
+                <div class="juego__acciones">
+                    <button type="button" class="btn btn--primario" id="btn-otra" hidden>Otra partida</button>
+                    <button type="button" class="btn btn--texto" id="btn-salir">Volver al inicio</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="teclado" id="teclado" aria-label="Teclado de letras"></div>
+    </section>
+
+</main>
+
+<footer class="pie">
+    <p>
+        Reto del programa Oracle ONE / Alura Latam ·
+        <a href="https://github.com/hmonsanto/Segundo-Challenge-Alura-Ahorcado" target="_blank" rel="noopener">Ver el código</a>
+    </p>
+    <p>Henry Monsanto · <span id="ano"></span></p>
+</footer>
+
+<script src="main.js"></script>
+</body>
 </html>

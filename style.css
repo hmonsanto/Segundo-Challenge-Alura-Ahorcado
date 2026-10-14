@@ -1,35 +1,300 @@
+/* Henry's Hangman — misma paleta que hmonsanto.github.io */
+
+:root {
+    --fondo:        #0A0E17;
+    --superficie:   #111827;
+    --superficie-2: #161F33;
+    --borde:        #1F2A3F;
+    --borde-claro:  #2B3A55;
+
+    --texto:        #EAF0FB;
+    --texto-suave:  #93A1BA;
+    --texto-tenue:  #64748B;
+
+    --acento:       #38BDF8;
+    --acento-2:     #A78BFA;
+    --ok:           #34D399;
+    --error:        #FB7185;
+
+    --display: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --cuerpo:  'Inter', system-ui, -apple-system, sans-serif;
+    --suave:   cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body, h1, p, figure, figcaption { margin: 0; padding: 0; }
+
 body {
-  background-image: url('img/man-mani-post-near-cable-car-during-daytime.jpg');
-  background-repeat: no-repeat;
-  background-size: 100%;
- 
+    font-family: var(--cuerpo);
+    background: var(--fondo);
+    color: var(--texto);
+    line-height: 1.65;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+        radial-gradient(42rem 28rem at 85% -10%, rgba(56, 189, 248, 0.13), transparent 60%),
+        radial-gradient(38rem 26rem at 5% 5%, rgba(167, 139, 250, 0.11), transparent 58%);
+    background-attachment: fixed;
 }
 
-.titulo {
-  padding: 15px;
-  width: 30vw;
-  margin: auto;
+img { max-width: 100%; height: auto; display: block; }
 
+:focus-visible {
+    outline: 2px solid var(--acento);
+    outline-offset: 3px;
+    border-radius: 6px;
 }
+
+/* ---------- Cabecera y pie ---------- */
+
+.cabecera {
+    padding: 1.3rem 1.5rem;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--borde);
+    border-radius: 9px;
+    transition: color 0.2s, border-color 0.2s, transform 0.2s var(--suave);
+}
+.volver:hover { color: var(--acento); border-color: var(--borde-claro); transform: translateX(-2px); }
+
+.pie {
+    border-top: 1px solid var(--borde);
+    padding: 1.6rem 1.5rem;
+    text-align: center;
+    color: var(--texto-tenue);
+    font-size: 0.85rem;
+}
+.pie a { color: var(--acento); }
+
+/* ---------- Página ---------- */
+
+.pagina {
+    flex: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1.5rem 1.5rem 3.5rem;
+}
+
+/* ---------- Inicio ---------- */
+
+.inicio { text-align: center; padding-top: 1.5rem; }
+
+.inicio h1 {
+    font-family: var(--display);
+    font-size: clamp(2rem, 6vw, 3.1rem);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    margin-bottom: 0.8rem;
+    background: linear-gradient(100deg, var(--texto) 25%, var(--acento));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.inicio__sub {
+    color: var(--texto-suave);
+    max-width: 48ch;
+    margin: 0 auto 2.2rem;
+}
+
+.anadir {
+    margin-top: 3.5rem;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+    padding: 1.6rem;
+    max-width: 480px;
+    margin-inline: auto;
+    text-align: left;
+}
+
+.anadir__etiqueta {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+    margin-bottom: 0.8rem;
+}
+
+.anadir__fila { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+
+.campo {
+    flex: 1 1 200px;
+    background: var(--superficie-2);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    padding: 0.7rem 0.9rem;
+    color: var(--texto);
+    font-family: var(--cuerpo);
+    font-size: 0.95rem;
+    text-transform: uppercase;
+}
+.campo::placeholder { color: var(--texto-tenue); text-transform: none; }
+.campo:focus { outline: none; border-color: var(--acento); }
+
+.anadir__cuenta { font-size: 0.84rem; color: var(--texto-tenue); margin-top: 0.8rem; }
+.anadir__cuenta strong { color: var(--texto-suave); }
+
+.aviso { font-size: 0.85rem; min-height: 1.4em; margin-top: 0.6rem; color: var(--texto-tenue); }
+.aviso[data-tipo="ok"]    { color: var(--ok); }
+.aviso[data-tipo="error"] { color: var(--error); }
+
+/* ---------- Botones ---------- */
 
 .btn {
-  border: 0;
-  color: white;
-  font-weight: bold;
-  background-color: rgb(0, 153, 255);
-  padding: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 0.5em;
+    font-family: var(--cuerpo);
+    font-size: 0.92rem;
+    font-weight: 600;
+    padding: 0.7rem 1.3rem;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.2s var(--suave), box-shadow 0.2s, border-color 0.2s, color 0.2s;
 }
 
-.text-input {
-  border-radius: 0.5em;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  display: block;
-  padding: 0.5em;
-  width: 20%;
-  height: 30px;
-  margin-left: auto;
-  margin-right: auto;
+.btn--primario {
+    background: linear-gradient(135deg, var(--acento), var(--acento-2));
+    color: #04121C;
+}
+.btn--primario:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(56, 189, 248, 0.3); }
+
+.btn--fantasma {
+    background: rgba(255, 255, 255, 0.02);
+    border-color: var(--borde-claro);
+    color: var(--texto);
+}
+.btn--fantasma:hover { border-color: var(--acento); color: var(--acento); }
+
+.btn--texto { background: none; color: var(--texto-tenue); }
+.btn--texto:hover { color: var(--texto); }
+
+.btn--grande { font-size: 1rem; padding: 0.9rem 2rem; }
+
+/* ---------- Juego ---------- */
+
+.juego__tablero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+    padding: 1.8rem;
+    margin-bottom: 1.8rem;
+}
+
+.dibujo { text-align: center; }
+
+.dibujo img {
+    width: 230px;
+    border-radius: 12px;
+    background: #fff;
+}
+
+.dibujo__pie {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--texto-suave);
+}
+
+.palabra {
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+    font-size: clamp(1.5rem, 4.5vw, 2.3rem);
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    word-break: break-word;
+    margin-bottom: 1rem;
+}
+
+.falladas { font-size: 0.88rem; color: var(--texto-tenue); margin-bottom: 1rem; }
+.falladas span { color: var(--error); }
+
+.resultado {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    min-height: 1.6em;
+    margin-bottom: 1rem;
+}
+.resultado[data-tipo="ok"]    { color: var(--ok); }
+.resultado[data-tipo="error"] { color: var(--error); }
+
+.juego__acciones { display: flex; gap: 0.7rem; flex-wrap: wrap; }
+
+/* ---------- Teclado ---------- */
+
+.teclado {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+    gap: 0.5rem;
+}
+
+.tecla {
+    font-family: var(--display);
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.75rem 0;
+    border-radius: 10px;
+    border: 1px solid var(--borde-claro);
+    background: var(--superficie-2);
+    color: var(--texto);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s var(--suave), opacity 0.18s;
+}
+.tecla:hover:not(:disabled) {
+    border-color: var(--acento);
+    color: var(--acento);
+    transform: translateY(-2px);
+}
+.tecla:disabled { cursor: not-allowed; }
+
+.tecla--acierto {
+    background: rgba(52, 211, 153, 0.16);
+    border-color: rgba(52, 211, 153, 0.5);
+    color: var(--ok);
+    opacity: 1;
+}
+.tecla--fallo {
+    background: rgba(251, 113, 133, 0.1);
+    border-color: rgba(251, 113, 133, 0.35);
+    color: var(--error);
+    opacity: 0.65;
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+
+@media (max-width: 700px) {
+    .juego__tablero {
+        grid-template-columns: 1fr;
+        gap: 1.4rem;
+        padding: 1.3rem;
+        text-align: center;
+    }
+    .dibujo img { width: 180px; margin-inline: auto; }
+    .juego__acciones { justify-content: center; }
+    .teclado { grid-template-columns: repeat(auto-fit, minmax(38px, 1fr)); gap: 0.4rem; }
+    .tecla { padding: 0.65rem 0; font-size: 0.92rem; }
+    .pagina { padding: 1rem 1.2rem 3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }
